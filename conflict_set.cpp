@@ -1,3 +1,4 @@
+#include <iterator>
 #include "conflict_set.h"
 
 void ConflictSet::addCardinalConflict(Conflict &conflict) {

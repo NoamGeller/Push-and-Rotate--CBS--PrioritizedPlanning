@@ -40,9 +40,9 @@ class Config
         int             agentsStep = 1;
 
     private:
-        bool getValueFromText(tinyxml2::XMLElement *elem, const char *name, const char *typeName, void *field);
-        bool getValueFromAttribute(tinyxml2::XMLElement *elem, const char *elemName,
-                                          const char *attrName, const char *typeName, void *field);
+        bool getValueFromText(tinyxml2::XMLElement *elem, const std::string name, const std::string typeName, void *field);
+        bool getValueFromAttribute(tinyxml2::XMLElement *elem, const std::string elemName,
+                                          const std::string attrName, const std::string typeName, void *field);
         bool getText(tinyxml2::XMLElement *elem, const char *name, std::string &field);
         tinyxml2::XMLElement* getChild(tinyxml2::XMLElement *elem, const char *name, bool printError = true);
 };

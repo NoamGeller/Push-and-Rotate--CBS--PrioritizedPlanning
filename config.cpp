@@ -168,9 +168,9 @@ bool Config::getConfig(const char *FileName)
     return true;
 }
 
-bool Config::getValueFromText(tinyxml2::XMLElement *elem, const char *name, const char *typeName, void *field) {
+bool Config::getValueFromText(tinyxml2::XMLElement *elem, const std::string name, const std::string typeName, void *field) {
     tinyxml2::XMLElement *child;
-    child = elem->FirstChildElement(name);
+    child = elem->FirstChildElement(name.c_str());
     if (!child) {
         std::cout << "Warning! No '" << name << "' tag found in XML file! Using deafult value." << std::endl;
         return false;
@@ -191,14 +191,14 @@ bool Config::getValueFromText(tinyxml2::XMLElement *elem, const char *name, cons
     return true;
 }
 
-bool Config::getValueFromAttribute(tinyxml2::XMLElement *elem, const char *elemName, const char *attrName, const char *typeName, void *field) {
+bool Config::getValueFromAttribute(tinyxml2::XMLElement *elem, const std::string elemName, const std::string attrName, const std::string typeName, void *field) {
     tinyxml2::XMLError res;
     if (typeName == "int") {
-        res = elem->QueryIntAttribute(attrName, (int*)field);
+        res = elem->QueryIntAttribute(attrName.c_str(), (int*)field);
     } else if (typeName == "bool") {
-        res = elem->QueryBoolAttribute(attrName, (bool*)field);
+        res = elem->QueryBoolAttribute(attrName.c_str(), (bool*)field);
     } else if (typeName == "double") {
-        res = elem->QueryDoubleAttribute(attrName, (double*)field);
+        res = elem->QueryDoubleAttribute(attrName.c_str(), (double*)field);
     }
     if (res != tinyxml2::XML_SUCCESS) {
         std::cout << "Warning! Couldn't get value from '" << attrName << "' attribute in '" <<

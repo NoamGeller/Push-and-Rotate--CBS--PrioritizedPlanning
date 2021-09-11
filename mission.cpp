@@ -111,15 +111,11 @@ void Mission::createAlgorithm()
         }
     } else if (config.searchType == CN_ST_ACBS) {
         if (config.lowLevel == CN_SP_ST_ASTAR) {
-            multiagentSearch = new AnytimeCBS<Astar<>>(new ConflictBasedSearch<Astar<>>(new Astar<>(true)));
         } else if (config.lowLevel == CN_SP_ST_SIPP) {
-            multiagentSearch = new AnytimeCBS<SIPP<>>(new ConflictBasedSearch<SIPP<>>(new SIPP<>()));
         }
     } else if (config.searchType == CN_ST_AECBS) {
         if (config.lowLevel == CN_SP_ST_FS) {
-            multiagentSearch = new AnytimeCBS<FocalSearch<>>(new ConflictBasedSearch<FocalSearch<>>(new FocalSearch<>(true, config.focalW)));
         } else if (config.lowLevel == CN_SP_ST_SCIPP) {
-            multiagentSearch = new AnytimeCBS<SCIPP<>>(new ConflictBasedSearch<SCIPP<>>(new SCIPP<>(config.focalW)));
         }
     }
 }
@@ -193,8 +189,7 @@ void Mission::startSearch(const std::string &agentsFile)
 
         if (config.singleExecution) {
             saveAgentsPathsToLog(agentsFile, sr.time.back(), sr.makespan.back(), sr.flowtime.back(),
-                                 sr.HLExpansions.back(), sr.HLNodes.back(),
-                                 sr.AvgLLExpansions.back(), sr.AvgLLNodes.back());
+                                 0,0,0,0);
         }
         if (!checkCorrectness()) {
             std::cout << "Search returned incorrect results!" << std::endl;

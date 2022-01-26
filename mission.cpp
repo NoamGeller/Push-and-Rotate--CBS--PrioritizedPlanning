@@ -287,7 +287,9 @@ void Mission::saveAggregatedResultsToLog() {
         for (auto res : testingResults) {
             if (res.data[CNS_TAG_ATTR_TIME].find(i) != res.data[CNS_TAG_ATTR_TIME].end()) {
                 for (auto key : keys) {
-                    sums[key] += res.data[key][i].back();
+                    if (!res.data[key][i].empty()) {
+                        sums[key] += res.data[key][i].back();
+                    }
                 }
                 ++successCount;
             }

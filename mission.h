@@ -4,7 +4,6 @@
 #include "map.h"
 #include "agent_set.h"
 #include "push_and_rotate.h"
-#include "conflict_based_search.h"
 #include "prioritized_planning.h"
 #include "config.h"
 #include "isearch.h"
@@ -55,7 +54,6 @@ class Mission
         Config                                config;
         EnvironmentOptions                    options;
         ISearch*                              search;
-        ConflictBasedSearch*                  conflictBasedSearch;
         PushAndRotate*                        pushAndRotate;
         PrioritizedPlanning*                  prioritizedPlanning;
         ILogger*                              logger;

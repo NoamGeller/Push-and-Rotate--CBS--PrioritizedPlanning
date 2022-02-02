@@ -1,11 +1,10 @@
 cmake_minimum_required(VERSION 2.8)
 project(ASearch)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -O2 -Wall -Wextra")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -O2 -Wall")
 set(SOURCE_FILES
         agent.cpp
         agent_set.cpp
         conflict_avoidance_table.cpp
-        conflict_based_search.cpp
         constraints_set.cpp
         prioritized_planning.cpp
         push_and_rotate.cpp
@@ -25,7 +24,6 @@ set(SOURCE_FILES
         cbs_node.h
         conflict.h
         conflict_avoidance_table.h
-        conflict_based_search.h
         constraint.h
         constraints_set.h
         multiagent_search_result.h

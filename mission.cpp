@@ -72,8 +72,6 @@ void Mission::createAlgorithm()
 {   
     if (config.searchType == CN_ST_PR) {
         pushAndRotate = new PushAndRotate(search);
-    } else if (config.searchType == CN_ST_CBS) {
-        conflictBasedSearch = new ConflictBasedSearch(search);
     } else if (config.searchType == CN_ST_PP) {
         prioritizedPlanning = new PrioritizedPlanning(search);
     }
@@ -91,9 +89,6 @@ void Mission::startSearch(const std::string &agentsFile)
         if (config.searchType == CN_ST_PR) {
             pushAndRotate->clear();
             sr = pushAndRotate->startSearch(map, config, curAgentSet);
-        } else if (config.searchType == CN_ST_CBS) {
-            conflictBasedSearch->clear();
-            sr = conflictBasedSearch->startSearch(map, config, curAgentSet);
         } else if (config.searchType == CN_ST_PP) {
             prioritizedPlanning->clear();
             sr = prioritizedPlanning->startSearch(map, config, curAgentSet);
@@ -167,15 +162,6 @@ bool Mission::checkCorrectness() {
                 return false;
             }
         }
-    }
-    Conflict conflict = ConflictBasedSearch::findConflict<std::vector<Node>::iterator>(starts, ends);
-    if (conflict.conflictFound) {
-        if (conflict.edgeConflict) {
-            std::cout << "Incorrect result: two agents swap positions!" << std::endl;
-        } else {
-            std::cout << "Incorrect result: two agents occupy the same node!" << std::endl;
-        }
-        return false;
     }
     return true;
 }

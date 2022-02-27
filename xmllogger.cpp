@@ -147,6 +147,12 @@ void XmlLogger::writeToLogMap(const Map &map, const std::list<Node> &path)
 void XmlLogger::writeToLogAgentsPaths(const AgentSet& agentSet,
                                       const std::vector<std::vector<Node>>& agentsPaths,
                                       const std::string &agentsFile, int makespan, int flowtime) {
+    //std::string out = "{\"instance\": \"";
+    //size_t basenameStart = agentsFile.find_last_of("/") + 1;
+    //size_t basenameEnd = agentsFile.find_last_of(".");
+    //out += agentsFile.substr(basenameStart, basenameEnd - basenameStart);
+    //out += "\", \"steps\": [";
+  
     XMLElement *log = doc.FirstChildElement(CNS_TAG_ROOT)->FirstChildElement(CNS_TAG_LOG);
 
     XMLElement *taskFileElement = doc.NewElement(CNS_TAG_TASKFN);
@@ -171,9 +177,15 @@ void XmlLogger::writeToLogAgentsPaths(const AgentSet& agentSet,
         XMLElement *pathElement = doc.NewElement(CNS_TAG_PATH);
         pathElement->SetAttribute(CNS_TAG_ATTR_PATH_FOUND, "true");
 
+        Node prevNode;
         for (int j = 0; j < agentsPaths[i].size() - 1; ++j) {
-            XMLElement *sectionElement = doc.NewElement(CNS_TAG_SECTION);
             Node curNode = agentsPaths[i][j], nextNode = agentsPaths[i][j + 1];
+
+            if (curNode.i == nextNode.i && curNode.j == nextNode.j) {
+              continue;
+            }
+
+            XMLElement *sectionElement = doc.NewElement(CNS_TAG_SECTION);
             sectionElement->SetAttribute(CNS_TAG_ATTR_ID, j);
             sectionElement->SetAttribute(CNS_TAG_ATTR_STARTX, curNode.i);
             sectionElement->SetAttribute(CNS_TAG_ATTR_STARTY, curNode.j);
@@ -181,6 +193,7 @@ void XmlLogger::writeToLogAgentsPaths(const AgentSet& agentSet,
             sectionElement->SetAttribute(CNS_TAG_ATTR_GOALY, nextNode.j);
             sectionElement->SetAttribute(CNS_TAG_ATTR_DUR, 1);
             pathElement->InsertEndChild(sectionElement);
+            prevNode = curNode;
         }
         agentElement->InsertEndChild(pathElement);
         log->InsertEndChild(agentElement);
